@@ -40,6 +40,11 @@ def clean_and_aggregate(
         TypeError: 如果 records 不是列表，或者指标值不是数字。
     """
 
+    if not isinstance(records, list):
+        raise TypeError("records must be a list")
+    if not records:
+        raise ValueError("records cannot be empty")
+
     valid_aggregations = {"sum", "mean", "min", "max", "count"}
     agg_op = aggregation.lower()
     if agg_op not in valid_aggregations:
@@ -82,9 +87,9 @@ def clean_and_aggregate(
         elif agg_op == "mean":
             val = sum(values) / len(values)
         elif agg_op == "min":
-            val = max(values)
-        elif agg_op == "max":
             val = min(values)
+        elif agg_op == "max":
+            val = max(values)
         elif agg_op == "count":
             val = len(values)
         else:
