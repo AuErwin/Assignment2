@@ -56,7 +56,7 @@ class MeetingRoom:
 
         # 检查与现有预订的时间冲突
         for b in self.bookings:
-            if not (end_time < b["start_time"] or start_time > b["end_time"]):
+            if not (end_time <= b["start_time"] or start_time >= b["end_time"]):
                 raise ValueError(f"Time slot [{start_time}, {end_time}] conflicts with booking '{b['booking_id']}' [{b['start_time']}, {b['end_time']}]")
 
         new_booking = {
