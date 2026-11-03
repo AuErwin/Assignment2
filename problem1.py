@@ -36,6 +36,44 @@ def calculate_trip_fare(distance_km: float, is_rush_hour: bool = False, passenge
     >>> calculate_trip_fare(1.5)
     3.0
     >>> # TODO: Add more doctests here (在这里添加更多 doctests)
+    # 成人
+    >>> calculate_trip_fare(5.0,passenger_type="adult")
+    7.5
+
+    # 儿童
+    >>> calculate_trip_fare(5.0,passenger_type="child")
+    3.75
+
+    # 老人
+    >>> calculate_trip_fare(5.0,passenger_type="senior")
+    5.25
+
+    # 正好两公里
+    >>> calculate_trip_fare(2.0)
+    3.0
+
+    # 高峰时段  (18*1.5+3)*1.25=37.5
+    >>> calculate_trip_fare(20.0, is_rush_hour=True)
+    37.5
+
+    # 高峰时段儿童 (13*1.5+3)*1.25*0.5=14.0625
+    >>> calculate_trip_fare(15.0, is_rush_hour=True, passenger_type="child")
+    14.06
+
+    # 高峰时段老人 (28*1.5+3)*1.25*0.7=39.375
+    >>> calculate_trip_fare(30.0, is_rush_hour=True, passenger_type="senior")
+    39.38
+
+    # 异常情况
+    >>> calculate_trip_fare(-5.0)
+    Traceback (most recent call last):
+    ...
+    ValueError: distance_km cannot be negative
+    
+    >>> calculate_trip_fare(5.0, passenger_type="invalid")
+    Traceback (most recent call last):
+    ...
+    ValueError: invalid passenger_type: must be 'adult', 'child', or 'senior'
     """
     if distance_km < 0:
         raise ValueError("distance_km cannot be negative")
